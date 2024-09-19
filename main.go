@@ -33,6 +33,10 @@ type DATES struct {
 	Dates []string `json:"dates"`
 }
 
+type DateIndex struct {
+	Indexs []DATES `json:"index"`
+}
+
 type RELATIONS struct {
 	Id             int             `json:"id"`
 	RelationStruct []DateLocations `json:"dateLocations"`
@@ -46,7 +50,7 @@ func main() {
 	// API URL: https://groupietrackers.herokuapp.com/api
 	// relations: https://groupietrackers.herokuapp.com/api/relation
 
-	url := "https://groupietrackers.herokuapp.com/api/artists"
+	url := "https://groupietrackers.herokuapp.com/api/dates"
 
 	res, err := http.Get(url)
 	if err != nil {
@@ -56,7 +60,7 @@ func main() {
 	defer res.Body.Close()
 
 	// var relations RELATIONS
-	var artists ARTISTS
+	var artists DateIndex
 	decode := json.NewDecoder(res.Body)
 	// err = decode.Decode(&relations)
 	err = decode.Decode(&artists)
@@ -68,9 +72,4 @@ func main() {
 	// fmt.Println(relations)
 	fmt.Println(artists)
 
-	// s := http.Server{
-	// 	Addr: "127.0.0.1:8088",
-	// }
-
-	// s.ListenAndServe()
 }
